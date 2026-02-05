@@ -1,6 +1,7 @@
 SRCDIR			?= src
 
 SPECIAL_FILES		+= 1mb
+SPECIAL_FILES		+= errors
 
 STATIC_FILES		+= hw.ipxe
 STATIC_FILES		+= ipxe.png
@@ -38,6 +39,18 @@ BIN_OTHER_FILES		+= bin-x86_64-pcbios/ipxe.lkrn
 BIN_OTHER_FILES		+= bin-x86_64-pcbios/ipxe.pxe
 BIN_OTHER_FILES		+= bin-x86_64-pcbios/undionly.kpxe
 
+ERROR_FILES		+= bin/errors
+ERROR_FILES		+= bin-arm32-efi/errors
+ERROR_FILES		+= bin-arm64-efi/errors
+ERROR_FILES		+= bin-i386-efi/errors
+ERROR_FILES		+= bin-loong64-efi/errors
+ERROR_FILES		+= bin-riscv32/errors
+ERROR_FILES		+= bin-riscv32-efi/errors
+ERROR_FILES		+= bin-riscv64/errors
+ERROR_FILES		+= bin-riscv64-efi/errors
+ERROR_FILES		+= bin-x86_64-efi/errors
+ERROR_FILES		+= bin-x86_64-pcbios/errors
+
 OUTPUTS_SPECIAL		:= $(patsubst %,output/%,$(SPECIAL_FILES))
 OUTPUTS_STATIC		:= $(patsubst %,output/%,$(STATIC_FILES))
 OUTPUTS_BIN		:= $(patsubst bin/%,output/%,$(BIN_FILES))
@@ -64,6 +77,9 @@ clean :
 output/1mb :
 	dd if=/dev/zero bs=1M count=1 | \
 	    openssl aes-256-ctr -nosalt -pass pass:none -iter 1 -out $@
+
+output/errors : $(patsubst %,$(SRCDIR)/%,$(ERROR_FILES))
+	sort -u $^ -o $@
 
 $(OUTPUTS_STATIC) : output/% : static/%
 	ln -sf $(realpath $<) $@
