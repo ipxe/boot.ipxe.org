@@ -128,4 +128,5 @@ $(OUTPUTS_BIN_OTHER) : output/% : $(SRCDIR)/bin-%
 $(INDEX_DYNAMIC) : output/% : $(ALL_OUTPUTS)
 	( cd $(dir $@) ; \
 	  tree -H "." -C -T "iPXE files" -s -D --filesfirst \
-               -I index.html -o index.html )
+               -I index.html -o index.html ; \
+	  sed -i 's/<head>/<head>\n <meta name="viewport" content="width=device-width, initial-scale=1">/' index.html )
