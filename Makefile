@@ -114,18 +114,18 @@ output/errors : $(patsubst %,$(SRCDIR)/%,$(ERROR_FILES))
 	sort -u $^ -o $@
 
 $(OUTPUTS_STATIC) : output/% : static/%
-	ln -sf $(realpath $<) $@
+	cp -p $< $@
 
 $(OUTPUTS_BIN) : output/% : $(SRCDIR)/bin/%
-	ln -sf $(realpath $<) $@
+	cp -p $< $@
 
 $(OUTPUTS_BIN_COMBI) : output/% : $(SRCDIR)/bin-combi/%
-	ln -sf $(realpath $<) $@
+	cp -p $< $@
 
 $(OUTPUTS_BIN_OTHER) : output/% : $(SRCDIR)/bin-%
-	ln -sf $(realpath $<) $@
+	cp -p $< $@
 
 $(INDEX_DYNAMIC) : output/% : $(ALL_OUTPUTS)
 	( cd $(dir $@) ; \
-	  tree -H "." -C -T "iPXE files" --filesfirst \
+	  tree -H "." -C -T "iPXE files" -s -D --filesfirst \
                -I index.html -o index.html )
