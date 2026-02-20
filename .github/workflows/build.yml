@@ -56,7 +56,12 @@ jobs:
           github-token: ${{ steps.token.outputs.token }}
           run-id: ${{ inputs.run_id || steps.run_id.outputs.run_id }}
           path: artifacts
-          pattern: '{bin,bin-*,shim}'
+          pattern: '{bin,bin-*,shim,version}'
+
+      - name: Rearrange
+        run: |
+          mv artifacts/version/* artifacts/bin/
+          rmdir artifacts/version
 
       - name: List
         run: |
