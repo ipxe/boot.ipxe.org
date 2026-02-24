@@ -23,6 +23,7 @@ BIN_COMBI_FILES		+= bin-combi/ipxe.iso
 BIN_COMBI_FILES		+= bin-combi/ipxe.usb
 BIN_COMBI_FILES		+= bin-combi/ipxe-legacy.iso
 BIN_COMBI_FILES		+= bin-combi/ipxe-legacy.usb
+BIN_COMBI_FILES		+= bin-combi/ipxeboot.tar.gz
 
 BIN_OTHER_FILES		+= bin-arm32-efi/ipxe.efi
 BIN_OTHER_FILES		+= bin-arm32-efi/ipxe-legacy.efi
